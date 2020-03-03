@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from './services/authentication-service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ng-fbase';
+  company = 'ng-fbase';
+  user$: Observable<firebase.User>;
+
+  constructor(
+    private authenticationService: AuthenticationService
+  ) {
+    this.user$ = this.authenticationService.user$;
+  }
+
+  async signOut() {
+    await this.authenticationService.SignOut();
+    window.location.reload();
+  }
 }

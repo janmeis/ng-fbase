@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyDP3YVotVksFJFb0tM4bH_NpZ7HRjeZuu0',
-    authDomain: 'dynamic-table-demo-4b474',
+    apiKey: 'AIzaSyDfGetCeQBg60SvjkeHerieUWURUJDKsFg',
+    authDomain: 'ng-fbase-d557e.firebaseapp.com',
     databaseURL: '<your-database-URL>',
-    projectId: '<your-project-id>',
+    projectId: 'ng-fbase-d557e',
     storageBucket: '<your-storage-bucket>',
     messagingSenderId: '<your-messaging-sender-id>'
   }

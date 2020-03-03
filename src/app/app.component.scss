@@ -1,0 +1,15 @@
+main {
+  margin-top: 56px;
+}
+span.nav-link:hover {
+  color: rgba(255, 255, 255, .5) !important;
+}
+a.nav-link {
+  color: rgba(255, 255, 255, .9);
+  font-weight: 600;
+  font-size: 1.2em;
+  &:hover {
+    color: white;
+    cursor: pointer;
+  }
+}
