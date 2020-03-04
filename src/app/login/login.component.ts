@@ -36,11 +36,13 @@ export class LoginComponent implements OnInit {
 
     const email = this.validateForm.get('email').value;
     const password = this.validateForm.get('password').value;
-    this.authenticationService.SignIn(email, password)
-      .then(_ => {
-        if (!!this.returnUrl)
-          this.router.navigateByUrl(this.returnUrl).then(redit => console.log('successfuly logged'));
-      })
-      .catch(err => this.error = err);
+    this.authenticationService.SignIn$(email, password)
+      .subscribe(
+        _ => {
+          const returnUrl = this.returnUrl || '/';
+          this.router.navigateByUrl(returnUrl);
+        },
+        err => this.error = err
+      );
   }
 }

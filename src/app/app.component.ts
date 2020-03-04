@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from './services/authentication-service';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthenticationService } from './services/authentication-service';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +13,17 @@ export class AppComponent {
   user$: Observable<firebase.User>;
 
   constructor(
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
     this.user$ = this.authenticationService.user$;
   }
 
-  async signOut() {
-    await this.authenticationService.SignOut();
-    window.location.reload();
+  signOut() {
+    this.authenticationService.SignOut$()
+      .subscribe(_ => {
+        const returnUrl = window.location.pathname;
+        this.router.navigate(['/login'], { queryParams: { returnUrl } });
+      });
   }
 }

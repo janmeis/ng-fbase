@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { tap } from 'rxjs/internal/operators/tap';
+import { first } from 'rxjs/operators';
 
 
 @Injectable({
@@ -13,13 +15,19 @@ export class AuthenticationService {
     this.user$ = angularFireAuth.authState;
   }
 
-  SignIn = (email: string, password: string): Promise<firebase.auth.UserCredential> =>
-    this.angularFireAuth
+  SignIn$ = (email: string, password: string): Observable<firebase.auth.UserCredential> =>
+    from(this.angularFireAuth
       .auth
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)).pipe(
+        tap((credentials: firebase.auth.UserCredential) => console.log(`Succesfully signed in as '${credentials.user.email}'`)),
+        first()
+      )
 
-  SignOut = (): Promise<void> =>
-    this.angularFireAuth
+  SignOut$ = (): Observable<void> =>
+    from(this.angularFireAuth
       .auth
-      .signOut()
+      .signOut()).pipe(
+        tap(_ => console.log('Succesfully signed out')),
+        first()
+      )
 }
