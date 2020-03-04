@@ -1,26 +1,31 @@
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guard/auth.guard';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
+import { ItemListComponent } from './item-list/item-list.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './services/authentication-service';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    ItemListComponent,
+    ItemDetailComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule

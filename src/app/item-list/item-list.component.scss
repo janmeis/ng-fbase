@@ -1,0 +1,12 @@
+.container-sm {
+  margin-top: 100px;
+  padding: 25px;
+  border: solid lightgray 0.1px;
+
+  td > a {
+    cursor: pointer;
+    i {
+      color: red;
+    }
+  }
+}
