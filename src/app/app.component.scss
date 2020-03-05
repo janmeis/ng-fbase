@@ -6,9 +6,16 @@ main {
   font-size: 1.5em;
   font-weight: 700;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  &.active {
+    color:white !important;
+  }
 }
-span.nav-link:hover {
+div.nav-link {
+  margin-top: 5px;
+  &:hover {
   color: rgba(255, 255, 255, 0.5) !important;
+  }
 }
 
 a.nav-link {

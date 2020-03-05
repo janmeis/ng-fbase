@@ -1,25 +1,19 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand ml-2" (click)="linkClicked('/')">{{company}}</a>
+  <a class="navbar-brand ml-2" [ngClass]="{'active': location.path()=='/welcome'}" routerLink="/">{{company}}</a>
 
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
 
 <ul class="navbar-nav mr-auto ml-3">
-  <li class="nav-item" [ngClass]="{'active': currentLink=='/item-list'}">
-    <a class="nav-link" (click)="linkClicked('/item-list')">Item list</a>
+  <li class="nav-item" [ngClass]="{'active': location.path()=='/item-list'}">
+    <a class="nav-link" routerLink="/item-list">Item list</a>
   </li>
-  <!-- <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-  </li> -->
 </ul>
 
   <ul *ngIf="(user$ | async) as user" class="navbar-nav ml-auto">
     <li class="nav-item">
-      <span class="nav-link">{{user.email}}</span>
+      <div class="nav-link">{{user.email}}</div>
     </li>
     <li class="nav-item">
       <a class="nav-link" (click)="signOut()">Sign out</a>

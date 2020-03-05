@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Item } from './item';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-item-detail',

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable, Subscriber, Subscription } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { Item } from '../item-detail/item';
-import { map, flatMap } from 'rxjs/operators';
 import { firestore } from 'firebase';
+import { Observable } from 'rxjs';
+import { flatMap, map } from 'rxjs/operators';
+import { Item } from '../item-detail/item';
 
 export interface ItemWithRef extends Item {
   refId: string;
@@ -41,8 +41,6 @@ export class ItemListComponent implements OnInit {
     this.db.collection<Item>('/Items').doc(id).delete();
   }
 
-  private getItemWithRef(doc: firestore.QueryDocumentSnapshot<firestore.DocumentData>): ItemWithRef {
-    const item = doc.data() as ItemWithRef;
-    return Object.assign(item, { refId: doc.ref.id });
-  }
+  private getItemWithRef = (doc: firestore.QueryDocumentSnapshot<firestore.DocumentData>): ItemWithRef =>
+    Object.assign({ refId: doc.id } as ItemWithRef, doc.data())
 }
