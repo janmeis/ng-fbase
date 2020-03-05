@@ -23,11 +23,13 @@ export class ItemDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
+
     this.validateForm = this.fb.group({
       name: [null, [Validators.required]],
       value: [null, [Validators.required]],
       comment: [null]
     });
+
     if (this.id != 'new')
       this.db.collection<Item>('/Items').doc(this.id).get().subscribe(item => {
         const data = item.data();

@@ -9,4 +9,9 @@
       color: red;
     }
   }
+
+  tr>th:last-child,
+  tr>td:last-child {
+    text-align: center;
+  }
 }
