@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
@@ -13,6 +13,8 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './services/authentication-service';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserModule,
+    FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],
