@@ -1,23 +1,35 @@
-<div class="container-sm">
-  <form [formGroup]="validateForm" (ngSubmit)="onSubmit()">
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="name">Name</label>
-        <input class="form-control" formControlName="name" type="text">
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="card bg-light">
+      <div class="card-body">
+        <h5 class="card-title">Item detail</h5>
+
+        <form [formGroup]="validateForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="name">Name</label>
+              <input class="form-control" formControlName="name" type="text">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="value">Value</label>
+              <input class="form-control" formControlName="value" type="number">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="comment">Comment</label>
+              <input class="form-control" formControlName="comment" type="text">
+            </div>
+          </div>
+          <div class="btn-group float-right" role="group">
+            <button type="button" class="btn btn-secondary mr-2" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="value">Value</label>
-        <input class="form-control" formControlName="value" type="number">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="comment">Comment</label>
-        <input class="form-control" formControlName="comment" type="text">
-      </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  </div>
 </div>
