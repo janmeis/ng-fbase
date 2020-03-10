@@ -38,6 +38,9 @@ export class ItemDetailComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.validateForm.invalid)
+      return;
+
     const item = this.validateForm.value as Item;
     if (this.id != 'new')
       this.db.collection<Item>('/Items').doc(this.id).set(item, { merge: true });

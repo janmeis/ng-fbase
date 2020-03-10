@@ -5,22 +5,39 @@
         <h5 class="card-title">Item detail</h5>
 
         <form [formGroup]="validateForm" (ngSubmit)="onSubmit()">
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label for="name">Name</label>
-              <input class="form-control" formControlName="name" type="text">
+          <div class="form-group required row">
+            <label for="name" class="col-md-2 col-form-label">Name</label>
+            <div class="col-md-10">
+              <input class="form-control"
+                     formControlName="name"
+                     type="text"
+                     required
+                     [ngClass]="{'is-invalid': validateForm.get('name').dirty && validateForm.get('name').errors?.required, 'is-valid': validateForm.get('name').dirty && validateForm.get('name').valid }">
+              <div *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors?.required" class="invalid-tooltip">
+                Please choose a unique and valid name.
+              </div>
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label for="value">Value</label>
-              <input class="form-control" formControlName="value" type="number">
+          <div class="form-group required row">
+            <label for="value" class="col-md-2 col-form-label">Value</label>
+            <div class="col-md-10">
+              <input class="form-control"
+                     formControlName="value"
+                     type="number"
+                     required
+                    [ngClass]="{'is-invalid': validateForm.get('value').dirty && validateForm.get('value').errors?.required, 'is-valid': validateForm.get('value').dirty && validateForm.get('value').valid }">
+              <div *ngIf="validateForm.get('value').dirty && validateForm.get('value').errors?.required" class="invalid-tooltip">
+                Please choose any value.
+              </div>
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label for="comment">Comment</label>
-              <input class="form-control" formControlName="comment" type="text">
+          <div class="form-group row">
+            <label for="comment" class="col-md-2 col-form-label">Comment</label>
+            <div class="col-md-10">
+              <input class="form-control"
+                     formControlName="comment"
+                     type="text"
+                     [ngClass]="{'is-valid': validateForm.get('comment').dirty && !!validateForm.get('comment').value }">
             </div>
           </div>
           <div class="btn-group float-right" role="group">
