@@ -2,11 +2,7 @@
   <div class="col-md-8 offset-md-2">
     <div class="card">
       <div class="card-header">
-        <!-- <button type="button"
-                class="btn btn-primary"
-                (click)="itemDetail('new')">Add Item</button> -->
-<button class="btn btn-outline-primary mb-2 mr-2"
-        (click)="openVerticallyCentered(content)">Modal vertically centered</button>
+        <button type="button" class="btn btn-primary" routerLink="/item-detail/new">Add Item</button>
       </div>
       <div class="card-body">
         <table class="table">
@@ -14,7 +10,7 @@
             <tr>
               <th scope="col">Name</th>
               <th scope="col">Value</th>
-              <th scope="col">Commnet</th>
+              <th scope="col">Commnent</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -24,9 +20,17 @@
               <td>{{item.value}}</td>
               <td>{{item.comment}}</td>
               <td>
-                <a (click)="removeItem(item.refId)">
+                <a [ngbPopover]="popContent" [autoClose]="false" triggers="manual" #pop="ngbPopover" (click)="pop.open()" placement="left">
                   <i class="fa fa-times" aria-hidden="true"></i>
                 </a>
+
+                <ng-template #popContent>
+                    Are you sure you want to delete '{{item.name}}'?
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" (click)="pop.close()">Cancel</button>
+                    <button type="button" class="btn btn-danger" (click)="popClose(pop, item.refId)">Ok</button>
+                  </div>
+                </ng-template>
               </td>
             </tr>
           </tbody>
@@ -35,29 +39,3 @@
     </div>
   </div>
 </div>
-<pre>{{closeResult}}</pre>
-
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
-        <div class="input-group">
-          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-  </div>
-</ng-template>

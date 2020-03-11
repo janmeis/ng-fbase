@@ -1,8 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Item } from './item';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from './item';
+
+/// <see cref="https://stackoverflow.com/a/50992362"></see>
+export function markControlsDirty(group: FormGroup | FormArray): void {
+  Object.keys(group.controls).forEach((key: string) => {
+    const abstractControl = group.controls[key];
+
+    if (abstractControl instanceof FormGroup || abstractControl instanceof FormArray)
+      markControlsDirty(abstractControl);
+    else
+      abstractControl.markAsDirty();
+  });
+}
 
 @Component({
   selector: 'app-item-detail',
@@ -38,6 +50,7 @@ export class ItemDetailComponent implements OnInit {
   }
 
   onSubmit() {
+    markControlsDirty(this.validateForm);
     if (this.validateForm.invalid)
       return;
 
