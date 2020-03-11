@@ -62,8 +62,4 @@ export class ItemDetailComponent implements OnInit {
 
     this.router.navigate(['/item-list']);
   }
-
-  onCancel() {
-    this.router.navigate(['/item-list']);
-  }
 }

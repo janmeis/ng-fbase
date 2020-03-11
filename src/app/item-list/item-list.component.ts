@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { firestore } from 'firebase';
 import { Observable } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
-import { Item } from '../item-detail/item';
+import { Item, ItemWithRef } from '../item-detail/item';
 
-export interface ItemWithRef extends Item {
-  refId: string;
-}
 
 export function sortFn(a: string, b: string): number {
   if (a > b)
@@ -31,9 +27,7 @@ export class ItemListComponent implements OnInit {
 
   constructor(
     private db: AngularFirestore,
-    private router: Router
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.items = this.db.collection<Item>('/Items').valueChanges().pipe(
