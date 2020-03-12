@@ -25,6 +25,10 @@ export class ItemDetailComponent implements OnInit {
   validateForm: FormGroup;
   id: string;
 
+  /// <see cref="https://stackblitz.com/edit/angular-reactive-forms-validation"/>
+  // convenience getter for easy access to form fields
+  get f() { return this.validateForm.controls; }
+
   constructor(
     private db: AngularFirestore,
     private route: ActivatedRoute,

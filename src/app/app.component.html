@@ -11,6 +11,9 @@
         <li class="nav-item" [ngClass]="{'active': location.path()=='/item-list'}">
           <a class="nav-link" routerLink="/item-list">Item list</a>
         </li>
+        <li class="nav-item" [ngClass]="{'active': location.path().indexOf('/item-detail') >= 0}">
+          <div class="nav-link">Item detail</div>
+        </li>
       </ul>
       <ul *ngIf="(user$ | async) as user" class="navbar-nav ml-auto">
         <li class="nav-item">

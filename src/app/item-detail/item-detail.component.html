@@ -12,8 +12,8 @@
                      formControlName="name"
                      type="text"
                      required
-                     [ngClass]="{'is-invalid': validateForm.get('name').dirty && validateForm.get('name').errors?.required, 'is-valid': validateForm.get('name').dirty && validateForm.get('name').valid }">
-              <div *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors?.required" class="invalid-tooltip">
+                     [ngClass]="{'is-invalid': f.name.dirty && f.name.errors?.required, 'is-valid': f.name.dirty && f.name.valid }">
+              <div *ngIf="f.name.dirty && f.name.errors?.required" class="invalid-tooltip">
                 Please choose a unique and valid name.
               </div>
             </div>
@@ -25,8 +25,8 @@
                      formControlName="value"
                      type="number"
                      required
-                    [ngClass]="{'is-invalid': validateForm.get('value').dirty && validateForm.get('value').errors?.required, 'is-valid': validateForm.get('value').dirty && validateForm.get('value').valid }">
-              <div *ngIf="validateForm.get('value').dirty && validateForm.get('value').errors?.required" class="invalid-tooltip">
+                    [ngClass]="{'is-invalid': f.value.dirty && f.value.errors?.required, 'is-valid': f.value.dirty && f.value.valid }">
+              <div *ngIf="f.value.dirty && f.value.errors?.required" class="invalid-tooltip">
                 Please choose any value.
               </div>
             </div>
@@ -37,7 +37,7 @@
               <input class="form-control"
                      formControlName="comment"
                      type="text"
-                     [ngClass]="{'is-valid': validateForm.get('comment').dirty && !!validateForm.get('comment').value }">
+                     [ngClass]="{'is-valid': f.comment.dirty && !!f.comment.value }">
             </div>
           </div>
           <div class="btn-group float-right" role="group">

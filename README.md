@@ -21,7 +21,7 @@
   * storageBucket: _'\<your-storage-bucket>',_
   * messagingSenderId: _'\<your-messaging-sender-id>'_
 - For nice look add bootstrap to the project [How to add bootstrap to your angular project (Angular 8)](https://medium.com/@oyewusioyekunle/how-to-add-bootstrap-to-your-angular-project-angular-8-6379fd6a0f46):
-_npm i bootstrap jquery popper.js --save_, edit angular.json to add bootstrap.
+_npm i bootstrap jquery popper.js --save_, edit angular.json to add bootstrap. Add also font awesome _npm i font-awesome --save_ and modify the angular.json accordingly.  
 Modify the front page with some menu to see bootstrap is working e.g. from [Bootstrap Examples](https://getbootstrap.com/docs/4.4/examples/)
 - Create the login page, you can use [Sign In Example](https://getbootstrap.com/docs/4.4/examples/sign-in/), you must play a bit with styles on both the app component page and login page
 - Create AuthenticationService based on [Authenticate with Firebase using Password-Based Accounts using Javascript](https://firebase.google.com/docs/auth/web/password-auth) or [Firebase Email Password Authentication in Angular 8 Application](https://jsonworld.com/demo/firebase-email-password-authentication-in-angular-application)
@@ -45,12 +45,17 @@ Also add auth guard to providers in app module
 - Update environment/firebase according setting found in firebase console
   * databaseURL: _https://----.firebaseio.com/_ found on the top of the modal if you switch to realtime database (---- is the same as project Id)
 - Add AngularFirestoreModule to imports in app module.
-- Add item list and item detail pages to the project and update routes in app routing
+- Add item list and item detail pages to the project and update routes in app routing.
 - Modify app component menu, notice the active class that works thanks to [Angular Location](https://angular.io/api/common/Location)
-- the item list was originally constructed using `this.items=this.db.collection('/Items').valueChanges()`. Unfortunatelly this returns only data with no document ids, so it is suitable only for display and not for editing and deleteng items. To overcome this issue a little bit strange construction using two `this.db.collection('/Items')` calls returning Items with document ids observable had to be used.
-- the item detail is for editing, adding new item.
-- Possible refactorings: Validation, Error handling, error messages, warning message (Sure to delete item?), the cancel button, change of the menu item from item list to item detail, move data display and editing or use modal.
-Move all firestore calls to a separate service.
+- The item list was originally constructed using `this.items=this.db.collection('/Items').valueChanges()`. Unfortunatelly this returns only data with no document ids, so it is suitable only for display and not for editing and deleteng items. To overcome this issue a little bit strange construction using two `this.db.collection('/Items')` calls returning Items with document ids observable is used.
+- In the last column of the table the font awesome is used to indicate the delete action (called the method by (click)).
+- For opening the item detail page the routerLink with the _Add item_ button and name hyperlink in the first column of the table (using the document Id with the link) is used
+- The reactive form is used and the _Submit_ and _Cancel_ buttons both of them returns to the item list page. Use some nice bootstrap of the form.  
+
+## Refactoring/enhancments of the current application
+- Possible refactorings: validation, error handling, error messages, warning message (_Sure to delete item?_), change of the menu item from item list to item detail, move data display and editing or use modal. Move all firestore calls to a separate service.
+- Validation: The [Bootastrap Forms Validation](https://getbootstrap.com/docs/4.0/components/forms/#tooltips) was employed. Further examples: [Form validation](https://angular.io/guide/form-validation). For the marking of the form group required the style of the same name was used. That adds a red asterisk after the label.  The input is marked as validation error if it's dirty and empty (in case of the required validation). The submit button click marks all the form controls dirty, so the validation error occurs even if the input was not accessed. Only if the form is valid the data is saved and the item list is displayed. In the [Angular 8 - Reactive Forms Validation Example](https://jasonwatmore.com/post/2019/06/14/angular-8-reactive-forms-validation-example), the submitted property is used for the validation to occur, not the dirty attribute used here.
+- _Sure to delete item?_ warning popover uses the ng bootstrap library: _npm i @ng-bootstrap/ng-bootstrap@5.2.2 --save_, must install this specific version. The popover is based on the ng-template with the Ok and Cancel buttons and is fired by the hyperlink on the font awesome delete icon.****
 
 ### .NET Core backend + Typewriter/NSwag code generation
 https://frhagn.github.io/Typewriter/  
