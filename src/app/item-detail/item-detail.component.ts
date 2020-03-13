@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { from, Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { CanComponentDeactivate } from '../guard/can-deactivate.guard';
+import { DialogService } from '../services/dialog.service';
 import { Item } from './item';
 
 /// <see cref="https://stackoverflow.com/a/50992362"></see>
@@ -21,7 +26,7 @@ export function markControlsDirty(group: FormGroup | FormArray): void {
   templateUrl: './item-detail.component.html',
   styleUrls: ['./item-detail.component.scss']
 })
-export class ItemDetailComponent implements OnInit {
+export class ItemDetailComponent implements OnInit, OnDestroy, CanComponentDeactivate {
   validateForm: FormGroup;
   id: string;
 
@@ -32,10 +37,10 @@ export class ItemDetailComponent implements OnInit {
   constructor(
     private db: AngularFirestore,
     private route: ActivatedRoute,
+    private dialogService: DialogService,
     private fb: FormBuilder,
     private router: Router
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -53,17 +58,50 @@ export class ItemDetailComponent implements OnInit {
       });
   }
 
+  ngOnDestroy(): void {
+  }
+
   onSubmit() {
+    this.save().pipe(
+      untilDestroyed(this),
+    ).subscribe(saved => {
+      if (saved)
+        this.router.navigate(['/item-list']);
+    });
+  }
+
+  canDeactivate(): Observable<boolean> {
+    if (this.validateForm.dirty)
+      return this.dialogService.dirtyConfirmation(() => this.save());
+
+    return of(true);
+  }
+
+  private save(): Observable<boolean> {
     markControlsDirty(this.validateForm);
     if (this.validateForm.invalid)
-      return;
+      return of(false);
 
     const item = this.validateForm.value as Item;
+    this.validateForm.markAsPristine();
     if (this.id != 'new')
-      this.db.collection<Item>('/Items').doc(this.id).set(item, { merge: true });
+      return from(this.db.collection<Item>('/Items').doc(this.id).set(item, { merge: true })).pipe(
+        map(_ => true),
+        catchError(err => {
+          console.log(err);
+          return of(false);
+        })
+      );
     else
-      this.db.collection<Item>('/Items').add(item);
-
-    this.router.navigate(['/item-list']);
+      return from(this.db.collection<Item>('/Items').add(item)).pipe(
+        map(ref => {
+          console.log(ref);
+          return true;
+        }),
+        catchError(err => {
+          console.log(err);
+          return of(false);
+        })
+      );
   }
 }
