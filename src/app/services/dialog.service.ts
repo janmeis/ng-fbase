@@ -20,7 +20,7 @@ export class DialogService {
 
     return from(modalRef.result).pipe(
       flatMap(_ => saveCallback()),
-      catchError(err => of(err != 'close click'))
+      catchError(err => of(err == 'cancel click'))
     );
   }
 }
