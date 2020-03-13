@@ -63,10 +63,12 @@ export class ItemDetailComponent implements OnInit, OnDestroy, CanComponentDeact
 
   onSubmit() {
     this.save().pipe(
-      untilDestroyed(this),
+      untilDestroyed(this)
     ).subscribe(saved => {
-      if (saved)
+      if (saved) {
+        this.validateForm.markAsPristine();   // for canDeactivate guard
         this.router.navigate(['/item-list']);
+      }
     });
   }
 
@@ -83,7 +85,6 @@ export class ItemDetailComponent implements OnInit, OnDestroy, CanComponentDeact
       return of(false);
 
     const item = this.validateForm.value as Item;
-    this.validateForm.markAsPristine();
     if (this.id != 'new')
       return from(this.db.collection<Item>('/Items').doc(this.id).set(item, { merge: true })).pipe(
         map(_ => true),
