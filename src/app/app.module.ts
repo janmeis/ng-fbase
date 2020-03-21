@@ -44,9 +44,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
     CanDeactivateGuard,
     DialogService
   ],
-  entryComponents: [
-    ConfirmModalComponent
-  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
